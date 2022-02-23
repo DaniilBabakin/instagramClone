@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from 'react';
+import {BrowserRouter as Router, Route,Routes} from 'react-router-dom'
+import * as ROUTES from './constants/routes'
+import UserContext from './context/user';
+import useAuthListener from './hooks/use-auth-listener';
 
-function App() {
+const Login = lazy(()=> import ('./pages/login'))
+const SignUp = lazy(()=> import ('./pages/sign-up'))
+const NotFound = lazy(()=> import ('./pages/not-found'))
+const Dashboard = lazy(()=> import ('./pages/dashboard'))
+
+export default function App() {
+  const {user} = useAuthListener()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <UserContext.Provider value={{user}}>
+   <Router>
+    <Suspense fallback={<p>Loading...</p>}>
+     <Routes>
+       <Route path={ROUTES.LOGIN} element={<Login/>}/>
+       <Route path={ROUTES.SIGN_UP} element={<SignUp/>}/>
+       <Route path={ROUTES.DASHBOARD} element={<Dashboard/>}/>
+       <Route path="/*" element={<NotFound/>}/>
+     </Routes>
+    </Suspense>
+   </Router>
+   </UserContext.Provider>
   );
 }
 
-export default App;
