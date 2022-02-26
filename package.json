@@ -46,7 +46,6 @@
     ]
   },
   "devDependencies": {
-    "@welldone-software/why-did-you-render": "^6.2.3",
     "autoprefixer": "^10.4.2",
     "css-loader": "^6.6.0",
     "gh-pages": "^3.2.3",

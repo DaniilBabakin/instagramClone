@@ -14,7 +14,7 @@ export default function useUser(){
     if (user?.uid) {
       getUserObjByUserId();
     }
-  },[user.uid])
+  },[user])
   
   return { user: activeUser };
 }
