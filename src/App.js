@@ -5,7 +5,7 @@ import UserContext from './context/user';
 import useAuthListener from './hooks/use-auth-listener';
 
 import ProtectedRoute from './helpers/protected-route';
-import IsUserLoggedIn from './helpers/is-user-logged-in';
+
 
 const Login = lazy(()=> import ('./pages/login'))
 const SignUp = lazy(()=> import ('./pages/sign-up'))
@@ -21,15 +21,9 @@ export default function App() {
    <Router>
     <Suspense fallback={<p>Loading...</p>}>
      <Routes>
-       <Route path={ROUTES.LOGIN} element={
-         <IsUserLoggedIn loggedInPath={ROUTES.DASHBOARD} user={user}>
-           <Login/>
-         </IsUserLoggedIn>
+       <Route path={ROUTES.LOGIN} element={<Login/>
        }/>
-       <Route path={ROUTES.SIGN_UP} element={
-         <IsUserLoggedIn loggedInPath={ROUTES.DASHBOARD} user={user}>
-           <SignUp/>
-         </IsUserLoggedIn>
+       <Route path={ROUTES.SIGN_UP} element={<SignUp/>
        }/>
        <Route path={ROUTES.PROFILE} element={<Profile/>}/>
        <Route path={ROUTES.DASHBOARD} element={

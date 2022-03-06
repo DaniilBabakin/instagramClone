@@ -43,6 +43,10 @@ export default function Header ({
           className='rounded-full h-40 w-40 flex'
           alt={`${profileUsername} profile pic`}
           src={`/images/avatars/${profileUsername}.jpg`}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src="/images/default.png";
+          }}  
           />
        )} 
       </div>

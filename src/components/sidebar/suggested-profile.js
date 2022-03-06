@@ -19,7 +19,12 @@ return !followed ? (
       <img
         className="rounded-full w-8 flex mr-3"
         src={`/images/avatars/${username}.jpg`}
-        alt="avatars"/>
+        alt="avatars"
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src="/images/default.png";
+        }}  
+        />
       <Link to={`/p/${username}`}>
         <p className="font-bold text-sm">
         {username}
