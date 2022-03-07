@@ -1,7 +1,7 @@
 import Firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-
+import 'firebase/compat/storage'
 const config = {
   apiKey: "AIzaSyAObltNbwwH2ycHJ4odxXHn9hx-8UkxjXk",
   authDomain: "instagram-project-434d0.firebaseapp.com",
@@ -13,5 +13,6 @@ const config = {
 
 const firebase = Firebase.initializeApp(config)
 const {FieldValue} = Firebase.firestore
+const storage = Firebase.storage()
 
-export {firebase,FieldValue};
+export {firebase,FieldValue,storage};
