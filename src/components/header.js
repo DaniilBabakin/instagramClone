@@ -1,15 +1,16 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import {Link}  from "react-router-dom"
 import FirebaseContext from "../context/firebase"
 import UserContext from "../context/user"
 import * as ROUTES from '../constants/routes'
 import useUser from "../hooks/use-user"
-
+import Modal from "./modal"
 export default function Header(){
   const { user: loggedInUser } = useContext(UserContext);
   const {firebase} = useContext(FirebaseContext)
   const { user } = useUser(loggedInUser?.uid);
-
+  const [modalActive,setModalActive] = useState(false)
+  console.log(loggedInUser)
   return (
     <header className="h-16 bg-white border-b border-gray-primary mb-8 px-8">
       <div className="container mx-auto max-w-screen-lg h-full">
@@ -40,7 +41,22 @@ export default function Header(){
                     />
                   </svg>
                 </Link>
-
+                <button onClick={()=> setModalActive(true)}>
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="h-6 mr-6 w-6" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor" 
+                    strokeWidth="2">
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </button>
+                <Modal active={modalActive} setActive={setModalActive}>
+                </Modal>
                 <button
                   type="button"
                   title="Sign Out"
