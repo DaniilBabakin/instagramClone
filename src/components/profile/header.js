@@ -48,6 +48,7 @@ export default function Header ({
             currentTarget.src="/images/default.png";
           }}  
           />
+        
        )} 
       </div>
       <div className='flex items-center justify-center flex-col col-span-2'>
