@@ -5,17 +5,14 @@ import UserContext from "../context/user"
 import * as ROUTES from '../constants/routes'
 import useUser from "../hooks/use-user"
 import Modal from "./modals/modal"
-import FinalModal from "./modals/final-modal"
 export default function Header(){
 
   const { user: loggedInUser } = useContext(UserContext);
   const {firebase} = useContext(FirebaseContext)
   const { user } = useUser(loggedInUser?.uid);
-  const [modalActive,setModalActive] = useState(false)
-  const [finalModalActive,setFinalModalActive] = useState(false)
-  const [imageUrl,setImageUrl] = useState(null)
+  const [modalActive,setModalActive] = useState(false) //Начальное модальное окно
+ 
 
-  console.log(loggedInUser)
   return (
     <header className="h-16 bg-white border-b w-full border-gray-primary mb-8 px-8">
       <div className="container mx-auto max-w-screen-lg h-full">
@@ -60,9 +57,8 @@ export default function Header(){
                       d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </button>
-                <Modal active={modalActive} setActive={setModalActive} finalActive={finalModalActive} setFinalActive={setFinalModalActive} imageUrl={imageUrl} setImageUrl={setImageUrl}>
+                <Modal active={modalActive} setActive={setModalActive} >
                 </Modal>
-                <FinalModal finalActive={finalModalActive} setFinalActive={setFinalModalActive} imageUrl={imageUrl}/>
 
                 <button
                   type="button"

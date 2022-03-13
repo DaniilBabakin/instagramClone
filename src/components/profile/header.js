@@ -28,7 +28,6 @@ export default function Header ({
     const isLoggedInUserFollowingProfile = async () => {
       const isFollowing = await isUserFollowingProfile(user.username,profileUserId)
       setIsFollowingProfile(!!isFollowing)
-      console.log(isFollowingProfile)
     }
 
     if(user?.username && profileUserId){
@@ -40,7 +39,7 @@ export default function Header ({
       <div className='container flex justify-center'>
        {!profileUsername ? <Skeleton circle={true} count={1} height={160} width={160}/>:(
         <img
-          className='rounded-full h-40 w-40 flex'
+          className='rounded-full w-40 text-center '
           alt={`${profileUsername} profile pic`}
           src={`/images/avatars/${profileUsername}.jpg`}
           onError={({ currentTarget }) => {
@@ -67,7 +66,7 @@ export default function Header ({
               >{isFollowingProfile ? "Unfollow" : "Follow"}</button>
           )}
         </div>
-        <div className='container flex mt-4'>
+        <div className='container flex flex-wrap mt-4'>
           {followers === undefined || following === undefined ? (
             <Skeleton count={1} width={677} height={24}/>
           ) : (
