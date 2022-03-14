@@ -12,6 +12,7 @@ const SignUp = lazy(()=> import ('./pages/sign-up'))
 const Dashboard = lazy(()=> import ('./pages/dashboard'))
 const Profile = lazy(()=> import ('./pages/profile'))
 const NotFound = lazy(()=> import ('./pages/not-found'))
+const FollowersModal = lazy(()=> import ('./components/modals/followers'))
 
 export default function App() {
   const {user} = useAuthListener()
@@ -22,6 +23,8 @@ export default function App() {
     <Suspense fallback={<p>Loading...</p>}>
      <Routes>
        <Route path={ROUTES.LOGIN} element={<Login/>
+       }/>
+       <Route path={ROUTES.FOLLOWERS} element={<FollowersModal/>
        }/>
        <Route path={ROUTES.SIGN_UP} element={<SignUp/>
        }/>

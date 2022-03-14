@@ -4,6 +4,8 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import useUser from '../../hooks/use-user'
 import { isUserFollowingProfile,toggleFollow } from '../../services/firebase'
+import {Link}  from "react-router-dom"
+import * as ROUTES from '../../constants/routes'
 
 export default function Header ({
   photosCount,
@@ -74,12 +76,16 @@ export default function Header ({
               <p className='mr-10'>
                 <span className='font-bold'>{photosCount}</span> photos
               </p>
-              <p className='mr-10'>
-                <span className='font-bold'>{followerCount}</span> {` `} {followerCount === 1 ? "follower" : "followers"}
-              </p>
-              <p className='mr-10'>
-                <span className='font-bold'>{following.length}</span> following
-              </p>
+              <Link to={ROUTES.FOLLOWERS} aria-label="Dashboard">
+                <p className='mr-10'>
+                  <span className='font-bold'>{followerCount}</span> {` `} {followerCount === 1 ? "follower" : "followers"}
+                </p>
+              </Link>
+              <Link to={ROUTES.FOLLOWING} aria-label="Dashboard">
+                <p className='mr-10'>
+                  <span className='font-bold'>{following.length}</span> following
+                </p>
+              </Link>
             </>
           )}
         </div>
