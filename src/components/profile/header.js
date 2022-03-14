@@ -36,10 +36,10 @@ export default function Header ({
   },[user?.username, profileUserId])
   return (
     <div className='grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg'>
-      <div className='container flex justify-center'>
+      <div className='container flex items-center justify-center'>
        {!profileUsername ? <Skeleton circle={true} count={1} height={160} width={160}/>:(
         <img
-          className='rounded-full w-40 text-center '
+          className='rounded-full w-40 flex text-center '
           alt={`${profileUsername} profile pic`}
           src={`/images/avatars/${profileUsername}.jpg`}
           onError={({ currentTarget }) => {

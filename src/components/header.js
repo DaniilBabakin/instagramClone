@@ -85,7 +85,7 @@ export default function Header(){
                   <div className="flex items-center cursor-pointer">
                     <Link to={`/p/${user.username}`}>
                       <img
-                        className="rounded-full h-8 w-8 flex"
+                        className="rounded-full w-8 flex"
                         src={`/images/avatars/${user.username}.jpg`}
                         alt={`${user.username} profile`}
                         onError={({ currentTarget }) => {

@@ -5,15 +5,15 @@ import 'react-loading-skeleton/dist/skeleton.css'
 export default function Photos({photos}){
   return (
     <div className="h-16 border-t border-gray-primary mt-12 pt-4">
-      <div className="grid grid-cols-3 gap-8 mt-4 mb-12">
+      <div className="grid grid-cols-3 auto-rows-fr	gap-8 mt-4 mb-12">
         {!photos ? (
           <>
             <Skeleton count={12} width={320} height={400}/>
           </>
         ): photos.length > 0 ? (
           photos.map((photo)=> (
-            <div key={photo.docId} className="relative group">
-              <img src={photo.imageSrc} alt={photo.caption}/>
+            <div key={photo.docId} className="relative group flex justify-center items-center">
+              <img src={photo.imageSrc} alt={photo.caption} className="object-cover w-32 h-32 sm:w-72 sm:h-72 md:w-80 md:h-80"/>
               <div className="absolute bottom-0 left-0 bg-gray-200 z-10 w-full h-full justify-evenly items-center bg-black-faded group-hover:flex hidden">
                 <p className="flex items-center text-white font-bold">
                   <svg
