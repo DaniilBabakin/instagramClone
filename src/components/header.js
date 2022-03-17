@@ -25,7 +25,7 @@ export default function Header(){
   }, [user.userId])
   
   return (
-    <header className="h-16 bg-white border-b w-full border-gray-primary mb-8 px-8 fixed top-0">
+    <header className="h-16 bg-white border-b w-full border-gray-primary mb-8 px-8">
       <div className="container mx-auto max-w-screen-lg h-full">
 
         <div className="flex justify-between h-full">
