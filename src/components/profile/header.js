@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import useUser from '../../hooks/use-user'
-import { isUserFollowingProfile,toggleFollow } from '../../services/firebase'
+import { getUserFollowersByUsername, isUserFollowingProfile,toggleFollow } from '../../services/firebase'
 import {Link}  from "react-router-dom"
 import * as ROUTES from '../../constants/routes'
+import FollowersModal from '../modals/followers'
 
 export default function Header ({
   photosCount,
@@ -17,7 +18,22 @@ export default function Header ({
   const {user} = useUser()
   const [isFollowingProfile,setIsFollowingProfile] = useState(null)
   const activeBtnFollow = user.username && user.username !== profileUsername
+  const [followersModalActive,setFollowersModalActive] = useState(false)
+  const [followersList,setFollowersList] = useState(null)
+  useEffect(() => {
 
+    async function getFollowers(){
+      const response= await getUserFollowersByUsername(user.userId,user.following)
+      console.log(response)
+      setFollowersList(response) // "Some User token"
+    }
+  
+    if(user.userId){
+      getFollowers()
+    }
+  
+  }, [user.userId])
+  
   const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
     setFollowerCount({
@@ -38,7 +54,7 @@ export default function Header ({
   },[user?.username, profileUserId])
   return (
     <div className='grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg'>
-      <div className='container flex items-center justify-center'>
+      <div className='container flex items-center justify-center mt-24 px-2'>
        {!profileUsername ? <Skeleton circle={true} count={1} height={160} width={160}/>:(
         <img
           className='rounded-full w-40 flex text-center '
@@ -52,7 +68,7 @@ export default function Header ({
         
        )} 
       </div>
-      <div className='flex items-center justify-center flex-col col-span-2'>
+      <div className='flex items-center justify-center flex-col col-span-2 mt-24'>
         <div className='container flex items-center'>
           <p className='text-2xl mr-4'>{profileUsername}</p>
           {activeBtnFollow && (
@@ -76,11 +92,14 @@ export default function Header ({
               <p className='mr-10'>
                 <span className='font-bold'>{photosCount}</span> photos
               </p>
-              <Link to={ROUTES.FOLLOWERS} aria-label="Dashboard">
+
+              <button onClick={()=>setFollowersModalActive(true)}>
                 <p className='mr-10'>
                   <span className='font-bold'>{followerCount}</span> {` `} {followerCount === 1 ? "follower" : "followers"}
                 </p>
-              </Link>
+                <FollowersModal active={followersModalActive} setActive={setFollowersModalActive} followers={followersList}/>
+              </button>
+              
               <Link to={ROUTES.FOLLOWING} aria-label="Dashboard">
                 <p className='mr-10'>
                   <span className='font-bold'>{following.length}</span> following

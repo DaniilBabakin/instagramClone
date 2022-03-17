@@ -1,20 +1,31 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import {Link}  from "react-router-dom"
 import FirebaseContext from "../context/firebase"
 import UserContext from "../context/user"
 import * as ROUTES from '../constants/routes'
 import useUser from "../hooks/use-user"
 import Modal from "./modals/modal"
-export default function Header(){
+import { getProfiles } from "../services/firebase"
+import SearchBar from "./search-bar"
 
+export default function Header(){
   const { user: loggedInUser } = useContext(UserContext);
   const {firebase} = useContext(FirebaseContext)
   const { user } = useUser(loggedInUser?.uid);
   const [modalActive,setModalActive] = useState(false) //Начальное модальное окно
- 
+  const [users,setUsers] = useState(null)
 
+  useEffect(() => {
+    const getAllUsers = async () => {
+      const result = await getProfiles(user.userId)
+      setUsers(result)
+      console.log(result)
+    }
+    getAllUsers()
+  }, [user.userId])
+  
   return (
-    <header className="h-16 bg-white border-b w-full border-gray-primary mb-8 px-8">
+    <header className="h-16 bg-white border-b w-full border-gray-primary mb-8 px-8 fixed">
       <div className="container mx-auto max-w-screen-lg h-full">
 
         <div className="flex justify-between h-full">
@@ -24,6 +35,10 @@ export default function Header(){
                 <img src="/images/logo.png" alt="Instagram Logo" className="mt-2 w-6/12"/>
               </Link>
             </h1>
+          </div>
+
+          <div className="flex items-center">
+            <SearchBar users={users}/>
           </div>
 
           <div className="text-gray-700 text-center flex items-center align-items">
@@ -57,8 +72,7 @@ export default function Header(){
                       d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </button>
-                <Modal active={modalActive} setActive={setModalActive} >
-                </Modal>
+                <Modal active={modalActive} setActive={setModalActive} />
 
                 <button
                   type="button"

@@ -24,8 +24,6 @@ export default function App() {
      <Routes>
        <Route path={ROUTES.LOGIN} element={<Login/>
        }/>
-       <Route path={ROUTES.FOLLOWERS} element={<FollowersModal/>
-       }/>
        <Route path={ROUTES.SIGN_UP} element={<SignUp/>
        }/>
        <Route path={ROUTES.PROFILE} element={<Profile/>}/>

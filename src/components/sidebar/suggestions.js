@@ -11,7 +11,6 @@ useEffect(() => {
 
   async function suggestedProfiles(){
     const response = await getSuggestedProfiles(userId,following)
-
     setProfiles(response)
   }
 

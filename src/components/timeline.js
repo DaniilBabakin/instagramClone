@@ -7,7 +7,7 @@ export default function Timeline(){
   const {photos} = usePhotos()
 
   return (
-    <div className="container col-span-2 mx-auto " >
+    <div className="container col-span-2 mx-auto mt-24" >
       {!photos ? (
         <>
           {[...new Array(4)].map((_,index)=>
