@@ -8,6 +8,7 @@ import Modal from "./modals/modal"
 import { getProfiles } from "../services/firebase"
 import SearchBar from "./search-bar"
 import '../../src/styles/header.css'
+
 export default function Header(){
   const { user: loggedInUser } = useContext(UserContext);
   const {firebase} = useContext(FirebaseContext)
@@ -25,14 +26,14 @@ export default function Header(){
   }, [user.userId])
   
   return (
-    <header className="h-16 bg-white border-b w-full border-gray-primary mb-8 px-8 ">
+    <header className="h-16 bg-white border-b w-full border-gray-primary mb-8 px-4 sm:px-4 md:px-8 ">
       <div className="container mx-auto max-w-screen-lg h-full">
 
         <div className="flex justify-between h-full">
           <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
             <h1 className="flex justify-center w-full">
               <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
-                <img src="/images/logo.png" alt="Instagram Logo" className="mt-2 w-6/12"/>
+                <img src="/images/logo.png" alt="Instagram Logo" className="mt-2 mr-2 w-6/12" style={{minWidth:"50px"}}/>
               </Link>
             </h1>
           </div>
@@ -46,7 +47,7 @@ export default function Header(){
               <>
                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                   <svg 
-                    xmlns="http://www.w3.org/2000/svg" className="h-6 mr-6 w-6 mobileHidden" 
+                    xmlns="http://www.w3.org/2000/svg" className="h-6 mr-6 w-6 compHidden" 
                     fill="none" 
                     viewBox="0 0 24 24" 
                     stroke="currentColor">
@@ -61,7 +62,7 @@ export default function Header(){
                 <button onClick={()=> setModalActive(true)}>
                   <svg 
                     xmlns="http://www.w3.org/2000/svg" 
-                    className="h-6 mr-6 w-6" 
+                    className="h-6 mr-6 w-6 compHidden" 
                     fill="none" 
                     viewBox="0 0 24 24" 
                     stroke="currentColor" 
@@ -83,7 +84,7 @@ export default function Header(){
                       firebase.auth().signOut()
                     }
                   }}
-                  className="mobileHidden"
+                  className="compHidden"
                   >
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" className="h-6 mr-6 w-6" 
@@ -97,7 +98,7 @@ export default function Header(){
                       />
                     </svg>
                   </button>
-                  <div className="flex items-center cursor-pointer mobileHidden">
+                  <div className="flex items-center cursor-pointer compHidden">
                     <Link to={`/p/${user.username}`}>
                       <img
                         className="rounded-full w-8 flex"

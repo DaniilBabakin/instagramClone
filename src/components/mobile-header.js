@@ -7,6 +7,7 @@ import useUser from "../hooks/use-user"
 import Modal from "./modals/modal"
 import { getProfiles } from "../services/firebase"
 import SearchBar from "./search-bar"
+import '../../src/styles/header.css'
 
 export default function MobileHeader(){
   const { user: loggedInUser } = useContext(UserContext);
@@ -25,16 +26,17 @@ export default function MobileHeader(){
   }, [user.userId])
   
   return (
-    <header className="h-16 bg-white border-b w-full border-gray-primary px-8 fixed bottom-0">
-      <div className="container mx-auto max-w-screen-lg h-full">
+    <header className="h-16 bg-white border-b w-full border-gray-primary fixed bottom-0 mobileHidden">
+      <div className="container mx-auto h-full">
+      <Modal active={modalActive} setActive={setModalActive} />
 
         
-          <div className="text-gray-700 text-center flex items-center h-full justify-around ">
+          <div className="text-gray-700 text-center flex items-center h-full justify-evenly">
             {user.username ? (
               <>
                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                   <svg 
-                    xmlns="http://www.w3.org/2000/svg" className="h-6 mr-6 w-6" 
+                    xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" 
                     fill="none" 
                     viewBox="0 0 24 24" 
                     stroke="currentColor">
@@ -49,7 +51,7 @@ export default function MobileHeader(){
                 <button onClick={()=> setModalActive(true)}>
                   <svg 
                     xmlns="http://www.w3.org/2000/svg" 
-                    className="h-6 mr-6 w-6" 
+                    className="h-6 w-6" 
                     fill="none" 
                     viewBox="0 0 24 24" 
                     stroke="currentColor" 
@@ -60,7 +62,7 @@ export default function MobileHeader(){
                       d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </button>
-                <Modal active={modalActive} setActive={setModalActive} />
+              
 
                 <button
                   type="button"
@@ -73,7 +75,7 @@ export default function MobileHeader(){
                   }}
                   >
                     <svg 
-                      xmlns="http://www.w3.org/2000/svg" className="h-6 mr-6 w-6" 
+                      xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" 
                       fill="none" 
                       viewBox="0 0 24 24" stroke="currentColor">
                       <path 

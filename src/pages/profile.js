@@ -4,6 +4,7 @@ import { getUserByUsername } from "../services/firebase"
 import * as ROUTES from '../constants/routes'
 import Header from "../components/header"
 import UserProfile from "../components/profile"
+import MobileHeader from "../components/mobile-header"
 
 export default function Profile() {
   const {username} = useParams()
@@ -29,6 +30,9 @@ export default function Profile() {
       
       <div className="mx-auto max-w-screen-lg">
         <UserProfile user={user}/>
+      </div>
+      <div >
+        <MobileHeader/>
       </div>
     </div>
   ) : null
