@@ -54,7 +54,7 @@ export default function Header ({
   },[user?.username, profileUserId])
   return (
     <div className='grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg'>
-      <div className='container flex items-center justify-center mt-24 px-2'>
+      <div className='container flex items-center justify-center px-2'>
        {!profileUsername ? <Skeleton circle={true} count={1} height={160} width={160}/>:(
         <img
           className='rounded-full w-40 flex text-center '
@@ -68,7 +68,7 @@ export default function Header ({
         
        )} 
       </div>
-      <div className='flex items-center justify-center flex-col col-span-2 mt-24'>
+      <div className='flex items-center justify-center flex-col col-span-2'>
         <div className='container flex items-center'>
           <p className='text-2xl mr-4'>{profileUsername}</p>
           {activeBtnFollow && (

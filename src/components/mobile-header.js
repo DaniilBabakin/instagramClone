@@ -7,8 +7,8 @@ import useUser from "../hooks/use-user"
 import Modal from "./modals/modal"
 import { getProfiles } from "../services/firebase"
 import SearchBar from "./search-bar"
-import '../../src/styles/header.css'
-export default function Header(){
+
+export default function MobileHeader(){
   const { user: loggedInUser } = useContext(UserContext);
   const {firebase} = useContext(FirebaseContext)
   const { user } = useUser(loggedInUser?.uid);
@@ -25,28 +25,16 @@ export default function Header(){
   }, [user.userId])
   
   return (
-    <header className="h-16 bg-white border-b w-full border-gray-primary mb-8 px-8 ">
+    <header className="h-16 bg-white border-b w-full border-gray-primary px-8 fixed bottom-0">
       <div className="container mx-auto max-w-screen-lg h-full">
 
-        <div className="flex justify-between h-full">
-          <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
-            <h1 className="flex justify-center w-full">
-              <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
-                <img src="/images/logo.png" alt="Instagram Logo" className="mt-2 w-6/12"/>
-              </Link>
-            </h1>
-          </div>
-
-          <div className="flex items-center">
-            <SearchBar users={users}/>
-          </div>
-
-          <div className="text-gray-700 text-center flex items-center align-items">
+        
+          <div className="text-gray-700 text-center flex items-center h-full justify-around ">
             {user.username ? (
               <>
                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                   <svg 
-                    xmlns="http://www.w3.org/2000/svg" className="h-6 mr-6 w-6 mobileHidden" 
+                    xmlns="http://www.w3.org/2000/svg" className="h-6 mr-6 w-6" 
                     fill="none" 
                     viewBox="0 0 24 24" 
                     stroke="currentColor">
@@ -83,7 +71,6 @@ export default function Header(){
                       firebase.auth().signOut()
                     }
                   }}
-                  className="mobileHidden"
                   >
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" className="h-6 mr-6 w-6" 
@@ -97,7 +84,7 @@ export default function Header(){
                       />
                     </svg>
                   </button>
-                  <div className="flex items-center cursor-pointer mobileHidden">
+                  <div className="flex items-center cursor-pointer">
                     <Link to={`/p/${user.username}`}>
                       <img
                         className="rounded-full w-8 flex"
@@ -123,7 +110,6 @@ export default function Header(){
               )
             }
           </div>
-        </div>
       </div>
     </header>
     
