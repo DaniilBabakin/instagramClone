@@ -113,7 +113,15 @@ export async function getUserPhotosByUsername(username){
   }))
 }
 
-export async function getUserFollowersByUsername(userId,following){
+export async function getUserFollowersByUsername(userId,followers){
+  const result = await firebase.firestore().collection('users').limit(10).get();
+  
+  return result.docs
+      .map((user)=> ({...user.data(),docId:user.id}))
+      .filter((profile)=>profile.userId !== userId && followers.includes(profile.userId))
+}
+
+export async function getUserFollowingByUsername(userId,following){
   const result = await firebase.firestore().collection('users').limit(10).get();
   
   return result.docs

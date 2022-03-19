@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Link } from "react-router-dom";
 
 export default function SearchBar ({users}) {
-  console.log(users)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 

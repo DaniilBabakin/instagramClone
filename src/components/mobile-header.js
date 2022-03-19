@@ -20,7 +20,6 @@ export default function MobileHeader(){
     const getAllUsers = async () => {
       const result = await getProfiles(user.userId)
       setUsers(result)
-      console.log(result)
     }
     getAllUsers()
   }, [user.userId])

@@ -3,14 +3,15 @@ import UserContext from "../../context/user"
 import {firebase } from '../../lib/firebase';
 import useUser from '../../hooks/use-user';
 import WarningModal from './warning';
+import SuggestedProfile from '../sidebar/suggested-profile'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import SingleProfile from '../profile/single-profile';
 
-export default function FollowersModal ({
+export default function FollowingModal ({
   setActive,
   active,
-  followers
+  following
 }) {
   const { user: loggedInUser } = useContext(UserContext);
   const [caption,setCaption] = useState("")
@@ -21,16 +22,16 @@ export default function FollowersModal ({
     
     <div className={`flex flex-col justify-center items-center rounded-xl bg-white transition duration-300 w-fit pointer-events-none ${active ? "scale-1 pointer-events-auto" : "scale-125"}`} onClick={e=>e.stopPropagation()}>
         <div className='flex flex-row w-full px-3 items-center justify-center py-1.5 '>
-            <p className='text-lg font-medium'>Подписчики</p>
+            <p className='text-lg font-medium'>Подписки</p>
         </div>
         
           <div className='flex flex-row justify-center items-start border-t border-gray-primary'>
             <div className='py-5 px-5 flex flex-col justify-start items-start '>
-            {!followers ? (
+            {!following ? (
               <Skeleton count={1} height={150} className="mt-5"/>) 
-              : followers.length > 0 
+              : following.length > 0 
               ? (<div className='mb-4 grid gap-5'>
-                {followers.map((profile)=> (
+                {following.map((profile)=> (
                 
                   <SingleProfile
                   key={profile.docId}
@@ -38,6 +39,7 @@ export default function FollowersModal ({
                   username={profile.username}
                   profileId={profile.userId}
                   userId={profile.userId}
+                  setActive={setActive}
                   />
                 ))}
               </div>) : null}

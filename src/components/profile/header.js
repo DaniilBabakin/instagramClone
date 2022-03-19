@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import useUser from '../../hooks/use-user'
-import { getUserFollowersByUsername, isUserFollowingProfile,toggleFollow } from '../../services/firebase'
+import { getUserFollowersByUsername, getUserFollowingByUsername, isUserFollowingProfile,toggleFollow } from '../../services/firebase'
 import {Link}  from "react-router-dom"
 import * as ROUTES from '../../constants/routes'
 import FollowersModal from '../modals/followers'
-
+import FollowingModal from '../modals/following'
+import '../../styles/header.css'
 export default function Header ({
   photosCount,
   followerCount,
@@ -20,20 +21,29 @@ export default function Header ({
   const activeBtnFollow = user.username && user.username !== profileUsername
   const [followersModalActive,setFollowersModalActive] = useState(false)
   const [followersList,setFollowersList] = useState(null)
+  const [followingModalActive,setFollowingModalActive] = useState(false)
+  const [followingList,setFollowingList] = useState(null)
+  //Получение списка подписчиков и подписок
   useEffect(() => {
-
+    //Список подписчиков
     async function getFollowers(){
-      const response= await getUserFollowersByUsername(user.userId,user.following)
-      console.log(response)
-      setFollowersList(response) // "Some User token"
+      const response= await getUserFollowersByUsername(profileUserId,followers)
+      setFollowersList(response) 
     }
-  
+    //Список подписок
+    async function getFollowing(){
+      const response= await getUserFollowingByUsername(profileUserId,following)
+      setFollowingList(response) 
+    }
+
     if(user.userId){
       getFollowers()
+      getFollowing()
     }
   
-  }, [user.userId])
-  
+  }, [profileUserId])
+
+  //Управление состоянием подписки
   const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
     setFollowerCount({
@@ -41,7 +51,7 @@ export default function Header ({
     })
     await toggleFollow(isFollowingProfile,user.docId,profileDocId,profileUserId,user.userId)
   }
-
+  
   useEffect(()=>{
     const isLoggedInUserFollowingProfile = async () => {
       const isFollowing = await isUserFollowingProfile(user.username,profileUserId)
@@ -53,8 +63,11 @@ export default function Header ({
     }
   },[user?.username, profileUserId])
   return (
-    <div className='grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg'>
-      <div className='container flex items-center justify-center px-2'>
+    <>
+    <FollowersModal active={followersModalActive} setActive={setFollowersModalActive} followers={followersList}/>
+    <FollowingModal active={followingModalActive} setActive={setFollowingModalActive} following={followingList}/>
+    <div className='grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg px-2'>
+      <div className='container flex items-center justify-center '>
        {!profileUsername ? <Skeleton circle={true} count={1} height={160} width={160}/>:(
         <img
           className='rounded-full w-40 flex text-center '
@@ -65,12 +78,13 @@ export default function Header ({
             currentTarget.src="/images/default.png";
           }}  
           />
-        
        )} 
       </div>
       <div className='flex items-center justify-center flex-col col-span-2'>
-        <div className='container flex items-center'>
-          <p className='text-2xl mr-4'>{profileUsername}</p>
+        <div className='container flex items-center flex-wrap justify-start'>
+          <p className='text-3xl mr-4 font-light'>{profileUsername}</p>
+          <button className='border border-gray-primary rounded  py-0.5 mt-2 font-semibold'>Редактировать профиль</button>
+
           {activeBtnFollow && (
             <button
               className='bg-blue-medium font-bold text-sm rounded text-white w-20 h-8'
@@ -84,7 +98,7 @@ export default function Header ({
               >{isFollowingProfile ? "Unfollow" : "Follow"}</button>
           )}
         </div>
-        <div className='container flex flex-wrap mt-4'>
+        <div className='container flex compHidden mt-4'>
           {followers === undefined || following === undefined ? (
             <Skeleton count={1} width={677} height={24}/>
           ) : (
@@ -97,14 +111,13 @@ export default function Header ({
                 <p className='mr-10'>
                   <span className='font-bold'>{followerCount}</span> {` `} {followerCount === 1 ? "follower" : "followers"}
                 </p>
-                <FollowersModal active={followersModalActive} setActive={setFollowersModalActive} followers={followersList}/>
               </button>
               
-              <Link to={ROUTES.FOLLOWING} aria-label="Dashboard">
+              <button onClick={()=>setFollowingModalActive(true)}>
                 <p className='mr-10'>
                   <span className='font-bold'>{following.length}</span> following
                 </p>
-              </Link>
+              </button>
             </>
           )}
         </div>
@@ -112,7 +125,31 @@ export default function Header ({
           <p className='font-medium'>{!fullName ? (<Skeleton count={1} height={24} width={300}/>) : fullName}</p>
         </div>
       </div>
+      <div className='container flex mobileHidden items-center justify-around py-4 border-t border-gray-primary' style={{ gridArea: "2 / 1 / 3 / 4" }}>
+          {followers === undefined || following === undefined ? (
+            <Skeleton count={1} width={677} height={24}/>
+          ) : (
+            <>
+              <p className=''>
+                <span className='font-bold'>{photosCount}</span> photos
+              </p>
+
+              <button onClick={()=>setFollowersModalActive(true)}>
+                <p className=''>
+                  <span className='font-bold'>{followerCount}</span> {` `} {followerCount === 1 ? "follower" : "followers"}
+                </p>
+              </button>
+              
+              <button onClick={()=>setFollowingModalActive(true)}>
+                <p className=''>
+                  <span className='font-bold'>{following.length}</span> following
+                </p>
+              </button>
+            </>
+          )}
+        </div>
     </div>
+    </>
   )
 }
 

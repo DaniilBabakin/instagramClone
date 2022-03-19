@@ -10,7 +10,6 @@ export default function Profile() {
   const {username} = useParams()
   const [user,setUser] = useState(null)
   const navigate = useNavigate()
-  console.log(username)
 
   useEffect(() => {
     async function checkUserExists(){
