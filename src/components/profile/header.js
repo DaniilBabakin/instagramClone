@@ -17,7 +17,6 @@ export default function Header ({
   loggedInUsername,
   profile:{docId:profileDocId,userId:profileUserId,fullName,following=[],followers=[],username:profileUsername}
 }){
-  console.log(profileUsername)
   const {user} = useUser()
   const [isFollowingProfile,setIsFollowingProfile] = useState(null)
   const isLoggedInUserProfile = user.username && user.username !== profileUsername // false изначально
@@ -82,7 +81,7 @@ export default function Header ({
       <div className='container flex items-center justify-center '>
        {!profileImage ? <Skeleton circle={true} count={1} height={160} width={160}/>:(
         <img
-          className='rounded-full w-40 object-cover h-40 flex text-center '
+          className='profilePicture rounded-full w-24 h-24 sm:w-40 object-cover sm:h-40 flex text-center '
           alt={`${profileUsername} profile pic`}
           src={profileImage}
           onError={({ currentTarget }) => {

@@ -87,6 +87,7 @@ export default function MobileHeader({avatars}){
                   </button>
                   <div className="flex items-center cursor-pointer">
                     <Link to={`/p/${user.username}`}>
+                      {avatars !== null && (
                       <img
                         className="rounded-full w-8 h-8 object-cover flex"
                         src={avatars.filter( user => user.userId == loggedInUser.uid).map(item=>item.imageSrc)}
@@ -95,7 +96,7 @@ export default function MobileHeader({avatars}){
                           currentTarget.onerror = null; // prevents looping
                           currentTarget.src="/images/default.png";
                         }}  
-                        />
+                        />)}
                     </Link>
                   </div>
               </>

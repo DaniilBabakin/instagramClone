@@ -43,7 +43,7 @@ export default function Profile() {
         <UserProfile user={user}/>
       </div>
       <div >
-        <MobileHeader/>
+        <MobileHeader avatars={avatars}/>
       </div>
     </div>
   ) : null
