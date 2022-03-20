@@ -4,7 +4,9 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 import { getSuggestedProfiles } from '../../services/firebase';
 import SuggestedProfile from './suggested-profile';
-export default function Suggestions({userId,following,loggedInUserDocId}) {
+
+export default function Suggestions({userId,following,loggedInUserDocId,avatars}) {
+  
 const [profiles, setProfiles] = useState(null)
 
 useEffect(() => {
@@ -30,6 +32,7 @@ return !profiles ? (
     <div className='mt-4 grid gap-5'>
       {profiles.map((profile)=> (
         <SuggestedProfile
+        imageSrc={avatars.filter( user => user.userId == profile.userId).map(item=>item.imageSrc)}
         key={profile.docId}
         profileDocId={profile.docId}
         username={profile.username}

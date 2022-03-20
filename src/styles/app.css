@@ -529,9 +529,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-5 {
   margin-top: 1.25rem;
 }
-.mt-4 {
-  margin-top: 1rem;
-}
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -544,14 +541,17 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mb-12 {
   margin-bottom: 3rem;
 }
+.mt-4 {
+  margin-top: 1rem;
+}
 .mr-10 {
   margin-right: 2.5rem;
 }
-.mt-12 {
-  margin-top: 3rem;
-}
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+.mr-5 {
+  margin-right: 1.25rem;
 }
 .flex {
   display: flex;
@@ -761,9 +761,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .p-4 {
   padding: 1rem;
 }
-.p-2 {
-  padding: 0.5rem;
-}
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -871,10 +868,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 1rem;
   line-height: 1.5rem;
 }
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -955,6 +948,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 @media (min-width: 640px) {
+
+  .sm\:mt-12 {
+    margin-top: 3rem;
+  }
 
   .sm\:flex {
     display: flex;

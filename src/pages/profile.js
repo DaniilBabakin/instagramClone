@@ -5,11 +5,23 @@ import * as ROUTES from '../constants/routes'
 import Header from "../components/header"
 import UserProfile from "../components/profile"
 import MobileHeader from "../components/mobile-header"
+import { firebase } from "../lib/firebase"
 
 export default function Profile() {
   const {username} = useParams()
   const [user,setUser] = useState(null)
   const navigate = useNavigate()
+  const [avatars,setAvatars] = useState(null)
+
+  useEffect(() => {
+    document.title = "Instagram"
+    
+    const getMarker= async() => {
+    const snapshot = await firebase.firestore().collection('avatars').get()
+    setAvatars(snapshot.docs.map(doc => doc.data()))
+    }
+    getMarker()
+  }, [])
 
   useEffect(() => {
     async function checkUserExists(){
@@ -25,7 +37,7 @@ export default function Profile() {
   
   return user?.username ? (
     <div className="bg-gray-background">
-      <Header/>
+      <Header avatars={avatars}/>
       
       <div className="mx-auto max-w-screen-lg">
         <UserProfile user={user}/>

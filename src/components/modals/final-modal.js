@@ -21,7 +21,7 @@ export default function FinalModal ({
   const { user: loggedInUser } = useContext(UserContext);
   const [caption,setCaption] = useState("")
   const {user: {username}} = useUser();
-  const handleFileUpload = () => {
+  const handlePictureUpload = () => {
       firebase.firestore().collection('photos').doc(newDocId).set({
             caption:caption,
             comments:[],
@@ -59,10 +59,10 @@ export default function FinalModal ({
             <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </button>
-          <div className='w-full'>
+          <div className='mx-auto'>
             <p className='text-lg font-medium ml-5'>Создание публикации</p>
           </div>
-            <button onClick={handleFileUpload} className="text-blue-medium font-bold ">Загрузить</button>
+            <button onClick={handlePictureUpload} className="text-blue-medium font-bold ">Загрузить</button>
         </div>
         
           <div className='flex flex-row justify-center items-start border-t border-gray-primary'>

@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import {updateFollowedUserFollowers,updateLoggedInUserFollowing} from '../../services/firebase'
 
-export default function SuggestedProfile({profileDocId,username,profileId,userId,loggedInUserDocId}){
+export default function SuggestedProfile({profileDocId,username,profileId,userId,loggedInUserDocId,imageSrc}){
 const [followed,setFollowed] = useState(false)
 async function handleFollowUser(){
   setFollowed(true)
@@ -19,7 +19,7 @@ return !followed ? (
       <div className="flex items-center justify-between">
         <img
           className="rounded-full w-8 flex mr-3"
-          src={`/images/avatars/${username}.jpg`}
+          src={imageSrc}
           alt="avatars"
           onError={({ currentTarget }) => {
             currentTarget.onerror = null; // prevents looping

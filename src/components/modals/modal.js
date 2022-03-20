@@ -9,10 +9,10 @@ export default function Modal ({active,setActive}) {
   const [selectedFile,setSelectedFile] = useState(null)
   const [newDocId,setNewDocId] = useState(null)
   const [warningActive,setWarningActive] = useState(false)
-
   useEffect(() => {
     if(selectedFile!==null){
       const uploadTask = storage.ref(`/images/${selectedFile.name}`)
+
     uploadTask.put(selectedFile).then(function() {
       uploadTask.getDownloadURL().then(function(downloadURL) {
           setImageUrl(downloadURL)

@@ -9,13 +9,12 @@ import { getProfiles } from "../services/firebase"
 import SearchBar from "./search-bar"
 import '../../src/styles/header.css'
 
-export default function Header(){
+export default function Header({avatars}){
   const { user: loggedInUser } = useContext(UserContext);
   const {firebase} = useContext(FirebaseContext)
   const { user } = useUser(loggedInUser?.uid);
   const [modalActive,setModalActive] = useState(false) //Начальное модальное окно
   const [users,setUsers] = useState(null)
-
   useEffect(() => {
     const getAllUsers = async () => {
       const result = await getProfiles(user.userId)
@@ -99,15 +98,17 @@ export default function Header(){
                   </button>
                   <div className="flex items-center cursor-pointer compHidden">
                     <Link to={`/p/${user.username}`}>
+                    {avatars !== null && (
                       <img
                         className="rounded-full w-8 flex"
-                        src={`/images/avatars/${user.username}.jpg`}
+                        src={avatars.filter( user => user.userId == loggedInUser.uid).map(item=>item.imageSrc)}
                         alt={`${user.username} profile`}
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
                           currentTarget.src="/images/default.png";
                         }}  
-                        />
+                        />)}
+                      
                     </Link>
                   </div>
               </>

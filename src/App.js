@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import {BrowserRouter as Router, Route,Routes} from 'react-router-dom'
 import * as ROUTES from './constants/routes'
 import UserContext from './context/user';
@@ -16,7 +16,7 @@ const FollowersModal = lazy(()=> import ('./components/modals/followers'))
 
 export default function App() {
   const {user} = useAuthListener()
-
+  const result = "gosdgosd"
   return (
   <UserContext.Provider value={{user}}>
    <Router>
@@ -29,7 +29,7 @@ export default function App() {
        <Route path={ROUTES.PROFILE} element={<Profile/>}/>
        <Route path={ROUTES.DASHBOARD} element={
          <ProtectedRoute user={user}>
-           <Dashboard/>
+           <Dashboard result={result}/>
          </ProtectedRoute>
        }
        />

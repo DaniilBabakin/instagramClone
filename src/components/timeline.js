@@ -2,10 +2,11 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 import usePhotos from '../hooks/use-photos';
 import Post from './post';
-export default function Timeline(){
+import { collection, doc,setDoc} from "firebase/firestore"; 
+import { storage,firebase } from '../lib/firebase';
 
+export default function Timeline({avatars}){
   const {photos} = usePhotos()
-
   return (
     <div className="container col-span-2 mx-auto" >
       {!photos ? (
@@ -14,7 +15,11 @@ export default function Timeline(){
             <Skeleton key={index} count={1} width={640} height={500} className="mb-5"/>)}
         </>
       ) : photos?.length > 0 ? (
-        photos.map((content)=> <Post key={content.docId} content={content}/>)
+        photos.map((content)=> <Post 
+            key={content.docId} 
+            content={content} 
+            profileImageSrc={avatars.filter( user => user.userId == content.userId).map(item=>item.imageSrc)}
+          />)
       ) :(
         <p className='text-center text-2xl'>Follow people to see photos</p>
       )} 

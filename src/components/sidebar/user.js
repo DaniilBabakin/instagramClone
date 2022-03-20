@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 
 
-export default function User ({ username, fullName }) {
+export default function User ({ username, fullName,imageSrc }) {
    return !username || !fullName ? (
     <Skeleton height={61} />
   ) : (
@@ -14,7 +14,7 @@ export default function User ({ username, fullName }) {
         <img
           className="rounded-full w-16 flex mr-3"
           style={{minWidth: "40px"}}
-          src={`/images/avatars/${username}.jpg`}
+          src={imageSrc}
           alt=""    
           onError={({ currentTarget }) => {
           currentTarget.onerror = null; // prevents looping
