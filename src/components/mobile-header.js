@@ -9,7 +9,7 @@ import { getProfiles } from "../services/firebase"
 import SearchBar from "./search-bar"
 import '../../src/styles/header.css'
 
-export default function MobileHeader(){
+export default function MobileHeader({avatars}){
   const { user: loggedInUser } = useContext(UserContext);
   const {firebase} = useContext(FirebaseContext)
   const { user } = useUser(loggedInUser?.uid);
@@ -88,8 +88,8 @@ export default function MobileHeader(){
                   <div className="flex items-center cursor-pointer">
                     <Link to={`/p/${user.username}`}>
                       <img
-                        className="rounded-full w-8 flex"
-                        src={`/images/avatars/${user.username}.jpg`}
+                        className="rounded-full w-8 h-8 object-cover flex"
+                        src={avatars.filter( user => user.userId == loggedInUser.uid).map(item=>item.imageSrc)}
                         alt={`${user.username} profile`}
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping

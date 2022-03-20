@@ -25,7 +25,7 @@ export default function Dashboard(){
         <Sidebar avatars={avatars}/>
       </div>
       <div >
-        <MobileHeader/>
+        <MobileHeader avatars={avatars}/>
       </div>
     </div>
   )

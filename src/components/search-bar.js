@@ -9,7 +9,7 @@ export default function SearchBar ({users,avatars}) {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
     const newFilter = users.filter((value) => {
-      return value.username.toLowerCase().includes(searchWord.toLowerCase());
+      return value.username.toLowerCase().includes(searchWord.toLowerCase()) || value.fullName.toLowerCase().includes(searchWord.toLowerCase());
     });
 
     if (searchWord === "") {

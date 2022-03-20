@@ -7,7 +7,7 @@ export default function Header({username,profileImageSrc}){
       <div className="flex items-center">
         <Link to={`/p/${username}`} className="flex items-center">
           <img 
-            className="rounded-full h-8 w-8 flex mr-3"
+            className="rounded-full h-8 w-8 object-cover flex mr-3"
             src={profileImageSrc}
             alt={`${username} profile picture`}
             onError={({ currentTarget }) => {
