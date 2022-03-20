@@ -82,7 +82,7 @@ export default function Header ({
       <div className='container flex items-center justify-center '>
        {!profileImage ? <Skeleton circle={true} count={1} height={160} width={160}/>:(
         <img
-          className='rounded-full w-40 flex text-center '
+          className='rounded-full w-40 object-cover h-40 flex text-center '
           alt={`${profileUsername} profile pic`}
           src={profileImage}
           onError={({ currentTarget }) => {

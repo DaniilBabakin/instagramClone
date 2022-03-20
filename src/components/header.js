@@ -37,7 +37,7 @@ export default function Header({avatars}){
           </div>
 
           <div className="flex items-center">
-            <SearchBar users={users}/>
+            <SearchBar users={users} avatars={avatars}/>
           </div>
 
           <div className="text-gray-700 text-center flex items-center align-items">
@@ -100,7 +100,7 @@ export default function Header({avatars}){
                     <Link to={`/p/${user.username}`}>
                     {avatars !== null && (
                       <img
-                        className="rounded-full w-8 flex"
+                        className="rounded-full w-8 h-8 object-cover flex"
                         src={avatars.filter( user => user.userId == loggedInUser.uid).map(item=>item.imageSrc)}
                         alt={`${user.username} profile`}
                         onError={({ currentTarget }) => {

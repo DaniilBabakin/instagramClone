@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
 
-export default function SearchBar ({users}) {
+export default function SearchBar ({users,avatars}) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -46,8 +46,8 @@ export default function SearchBar ({users}) {
               <div className="w-full bg-white  items-center">
                 <Link to={`/p/${user.username}`} className="flex justify-start items-center flex-row p-3">
                   <img
-                    className="rounded-full h-8 flex mr-3"
-                    src={`/images/avatars/${user.username}.jpg`}
+                    className="rounded-full h-8 w-8 object-cover flex mr-3"
+                    src={avatars.filter( profile => profile.userId == user.userId).map(item=>item.imageSrc)}
                     alt="avatars"
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null; // prevents looping
