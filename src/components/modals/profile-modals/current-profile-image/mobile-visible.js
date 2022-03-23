@@ -28,7 +28,7 @@ export default function MobileVisible ({
             <img 
             src={image.imageSrc} 
             className="mobileHidden"
-            style={{maxHeight: "500px", width: "100%", maxWidth:"500px", objectFit: "cover"}}
+            style={{height:"45vh", width: "90vw", objectFit: "cover"}}
             onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src="/images/default.png";

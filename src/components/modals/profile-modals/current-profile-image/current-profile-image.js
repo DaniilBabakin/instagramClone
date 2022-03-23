@@ -30,11 +30,12 @@ export default function CurrentProfileImage ({
   return (
     <div> 
 
-      <div className={` flex justify-center items-center h-full w-full bg-black-faded fixed top-0 left-0 z-40 transition duration-300 pointer-events-none ${active ? "opacity-1 pointer-events-auto" : "opacity-0"}`} onClick={async ()=> { await setActive(false)}} >
+      <div className={` flex justify-center items-center h-full w-full bg-black-faded fixed top-0 left-0 z-40 transition duration-300 pointer-events-none ${active ? "opacity-1 pointer-events-auto" : "opacity-0"}`} onClick={()=> { setActive(false)}} >
 
         <div className={`flex flex-col justify-center items-center rounded-xl bg-white transition duration-300 pointer-events-none ${active ? "scale-1 pointer-events-auto" : "scale-125"}`} onClick={e=>e.stopPropagation()}>
-          <div className='flex flex-row w-full px-3 justify-center py-1.5 '>
+          <div className='flex flex-row w-full px-3 justify-center py-1.5 relative'>
               <p className='text-lg font-medium'>Ваша публикация</p>
+              <button className='absolute right-2 top-2 text-red-primary' onClick={()=>setActive(false)}>Закрыть</button>
           </div>
         
           <div className='flex flex-col sm:flex-row justify-center items-start border-t border-gray-primary'>
