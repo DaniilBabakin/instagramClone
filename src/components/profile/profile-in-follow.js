@@ -1,9 +1,12 @@
 import PropTypes from "prop-types"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import usePhotos from "../../hooks/use-photos"
+import Footer from "../post/footer"
 
-export default function SingleProfile({profileDocId,username,profileId,userId,loggedInUserDocId,setActive}){
-
+export default function ProfileInFollow({profileDocId,username,profileId,userId,loggedInUserDocId,setActive}){
+const {photos} = usePhotos()
+console.log(photos)
 return (
     <div className="flex flex-row items-center align-items justify-between">
       <div className="flex items-center justify-between">
@@ -27,7 +30,7 @@ return (
 ) 
 }
 
-SingleProfile.propTypes = {
+ProfileInFollow.propTypes = {
 profileDocId: PropTypes.string.isRequired,
 username: PropTypes.string.isRequired,
 profileId: PropTypes.string.isRequired,

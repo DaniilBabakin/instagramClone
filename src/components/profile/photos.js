@@ -1,18 +1,24 @@
 import PropTypes from 'prop-types'
+import {useState} from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import CurrentProfileImage from '../modals/profile-modals/current-profile-image/current-profile-image'
 
 export default function Photos({photos}){
+  const [activeModal,setActiveModal] = useState(false)
+  const [image,setImage] = useState(null)
+
   return (
     <div className="h-16 border-t border-gray-primary sm:mt-12 pt-4">
-      <div className="grid grid-cols-3 auto-rows-fr	gap-0.5 lg:gap-8 mt-4 ">
+      <CurrentProfileImage active={activeModal} setActive={setActiveModal} image={image} setImage={setImage} photos={photos}/>
+      <div className="grid grid-cols-3 auto-rows-fr	gap-0.5 lg:gap-8 mt-4 pb-6">
         {!photos ? (
           <>
             <Skeleton count={12} width={320} height={400}/>
           </>
         ): photos.length > 0 ? (
           photos.map((photo)=> (
-            <div key={photo.docId} className="relative group flex justify-center items-center">
+            <div key={photo.docId} className="relative group flex justify-center items-center" onClick={()=>{setActiveModal(true);setImage(photo)}}>
               <img src={photo.imageSrc} alt={photo.caption} className="object-cover w-40 h-40 sm:w-72 sm:h-72 md:w-80 md:h-80"/>
               <div className="absolute bottom-0 left-0 bg-gray-200 z-10 w-full h-full justify-evenly items-center bg-black-faded group-hover:flex hidden">
                 <p className="flex items-center text-white font-bold">

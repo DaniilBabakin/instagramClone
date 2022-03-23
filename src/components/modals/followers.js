@@ -5,7 +5,7 @@ import useUser from '../../hooks/use-user';
 import WarningModal from './warning';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import SingleProfile from '../profile/single-profile';
+import ProfileInFollow from '../profile/profile-in-follow';
 
 export default function FollowersModal ({
   setActive,
@@ -32,7 +32,7 @@ export default function FollowersModal ({
               ? (<div className='mb-4 grid gap-5'>
                 {followers.map((profile)=> (
                 
-                  <SingleProfile
+                  <ProfileInFollow
                   key={profile.docId}
                   profileDocId={profile.docId}
                   username={profile.username}

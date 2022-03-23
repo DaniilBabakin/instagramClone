@@ -45,7 +45,6 @@ export async function getProfiles(userId) {
   
   return result.docs
       .map((user)=> ({...user.data(),docId:user.id}))
-      .filter((profile)=>profile.userId !== userId)
 }
 
 
